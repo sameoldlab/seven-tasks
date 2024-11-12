@@ -1,6 +1,13 @@
-[package]
-name = "seven-tasks"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
-[dependencies]
+resolver = "2"
+members = [
+  "counter",
+  "temp-converter",
+  "flight-booker",
+  "timer",
+  "crud",
+  "circle-drawer",
+  "cells"
+]
+
