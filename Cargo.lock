@@ -2890,6 +2890,9 @@ dependencies = [
 [[package]]
 name = "temp-converter"
 version = "0.1.0"
+dependencies = [
+ "iced",
+]
 
 [[package]]
 name = "tempfile"
