@@ -1007,6 +1007,9 @@ dependencies = [
 [[package]]
 name = "flight-booker"
 version = "0.1.0"
+dependencies = [
+ "iced",
+]
 
 [[package]]
 name = "font-types"
