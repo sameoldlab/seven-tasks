@@ -1,27 +1,52 @@
 // Slint default template
 // https://github.com/slint-ui/slint-rust-template/archive/refs/heads/main.zip
 
-import { Button, VerticalBox } from "std-widgets.slint";
+import { Button, VerticalBox, TabWidget, HorizontalBox, HorizontalBox } from "std-widgets.slint";
+import { Counter } from "counter.slint";
 
 export component AppWindow inherits Window {
-    in-out property <int> counter: 0;
-    callback request-increase-value();
-    callback request-decrease-value();
     VerticalBox {
-        Text {
-            text: "Counter: \{root.counter}";
-        }
-
-        Button {
-            text: "Increase value";
-            clicked => {
-                root.request-increase-value();
+        TabWidget {
+            Tab {
+                title: "Counter";
+                Counter { }
             }
-        }
-        Button {
-            text: "Decrease value";
-            clicked => {
-                root.request-decrease-value();
+
+            Tab {
+                title: "Temp Converter";
+                Rectangle {
+                    background: red;
+                }
+            }
+            Tab {
+                title: "Flight Booker";
+                Rectangle {
+                    background: red;
+                }
+            }
+            Tab {
+                title: "Timer";
+                Rectangle {
+                    background: red;
+                }
+            }
+            Tab {
+                title: "CRUD";
+                Rectangle {
+                    background: red;
+                }
+            }
+            Tab {
+                title: "Circle Drawer";
+                Rectangle {
+                    background: red;
+                }
+            }
+            Tab {
+                title: "Cells";
+                Rectangle {
+                    background: red;
+                }
             }
         }
     }
