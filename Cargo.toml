@@ -1,16 +1,10 @@
-[workspace]
+[package]
+name = "seven-tasks"
+version = "0.1.0"
+edition = "2021"
 
-resolver = "2"
-members = [
-  "counter",
-  "temp-converter",
-  "flight-booker",
-  "timer",
-  "crud",
-  "circle-drawer",
-  "cells"
-]
+[dependencies]
+slint =  "1.8.0"
 
-[workspace.dependencies]
-slint = "1.8.0"
+[build-dependencies]
 slint-build = "1.8.0"

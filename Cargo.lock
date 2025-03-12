@@ -737,13 +737,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cells"
-version = "0.1.0"
-dependencies = [
- "slint",
-]
-
-[[package]]
 name = "cesu8"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -801,13 +794,6 @@ dependencies = [
  "num-traits",
  "wasm-bindgen",
  "windows-link",
-]
-
-[[package]]
-name = "circle-drawer"
-version = "0.1.0"
-dependencies = [
- "slint",
 ]
 
 [[package]]
@@ -1009,14 +995,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "counter"
-version = "0.1.0"
-dependencies = [
- "slint",
- "slint-build",
-]
-
-[[package]]
 name = "countme"
 version = "3.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1129,13 +1107,6 @@ name = "crossbeam-utils"
 version = "0.8.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28"
-
-[[package]]
-name = "crud"
-version = "0.1.0"
-dependencies = [
- "slint",
-]
 
 [[package]]
 name = "crunchy"
@@ -1467,13 +1438,6 @@ checksum = "11faaf5a5236997af9848be0bef4db95824b1d534ebc64d0f0c6cf3e67bd38dc"
 dependencies = [
  "crc32fast",
  "miniz_oxide",
-]
-
-[[package]]
-name = "flight-booker"
-version = "0.1.0"
-dependencies = [
- "slint",
 ]
 
 [[package]]
@@ -4235,6 +4199,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "seven-tasks"
+version = "0.1.0"
+dependencies = [
+ "slint",
+ "slint-build",
+]
+
+[[package]]
 name = "sha1"
 version = "0.10.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4607,13 +4579,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "61c41af27dd6d1e27b1b16b489db798443478cef1f06a660c96db617ba5de3b1"
 
 [[package]]
-name = "temp-converter"
-version = "0.1.0"
-dependencies = [
- "slint",
-]
-
-[[package]]
 name = "tempfile"
 version = "3.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4691,13 +4656,6 @@ dependencies = [
  "flate2",
  "jpeg-decoder",
  "weezl",
-]
-
-[[package]]
-name = "timer"
-version = "0.1.0"
-dependencies = [
- "slint",
 ]
 
 [[package]]
