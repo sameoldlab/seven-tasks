@@ -13,6 +13,4 @@ members = [
 
 [workspace.dependencies]
 slint = "1.8.0"
-
-[workspace.build-dependencies]
 slint-build = "1.8.0"
