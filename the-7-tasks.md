@@ -5,14 +5,16 @@ The tasks were selected by the following criteria. The task set should be as sma
 Below, a description of each task highlighted with the challenges it reflects and a screenshot of the resulting GUI application in Java/Swing is given.
 
 For a live version of the tasks see my React/MobX implementation.
-Counter
+
+## Counter
 
 Challenge: Understanding the basic ideas of a language/toolkit.
 
 The task is to build a frame containing a label or read-only textfield T and a button B. Initially, the value in T is “0” and each click of B increases the value in T by one.
 
 Counter serves as a gentle introduction to the basics of the language, paradigm and toolkit for one of the simplest GUI applications imaginable. Thus, Counter reveals the required scaffolding and how the very basic features work together to build a GUI application. A good solution will have almost no scaffolding.
-Temperature Converter
+
+## Temperature Converter
 
 Challenges: bidirectional data flow, user-provided text input.
 
@@ -21,7 +23,8 @@ The task is to build a frame containing two textfields TC and TF representing th
 Temperature Converter increases the complexity of Counter by having bidirectional data flow between the Celsius and Fahrenheit inputs and the need to check the user input for validity. A good solution will make the bidirectional dependency very clear with minimal boilerplate code.
 
 Temperature Converter is inspired by the Celsius/Fahrenheit converter from the book Programming in Scala. It is such a widespread example—sometimes also in the form of a currency converter—that one could give a thousand references. The same is true for the Counter task.
-Flight Booker
+
+## Flight Booker
 
 Challenge: Constraints.
 
@@ -30,7 +33,8 @@ The task is to build a frame containing a combobox C with the two options “one
 The focus of Flight Booker lies on modelling constraints between widgets on the one hand and modelling constraints within a widget on the other hand. Such constraints are very common in everyday interactions with GUI applications. A good solution for Flight Booker will make the constraints clear, succinct and explicit in the source code and not hidden behind a lot of scaffolding.
 
 Flight Booker is directly inspired by the Flight Booking Java example in Sodium with the simplification of using textfields for date input instead of specialized date picking widgets as the focus of Flight Booker is not on specialized/custom widgets.
-Timer
+
+## Timer
 
 Challenges: concurrency, competing user/signal interactions, responsiveness.
 
@@ -39,7 +43,8 @@ The task is to build a frame containing a gauge G for the elapsed time e, a labe
 Timer deals with concurrency in the sense that a timer process that updates the elapsed time runs concurrently to the user’s interactions with the GUI application. This also means that the solution to competing user and signal interactions is tested. The fact that slider adjustments must be reflected immediately moreover tests the responsiveness of the solution. A good solution will make it clear that the signal is a timer tick and, as always, has not much scaffolding.
 
 Timer is directly inspired by the timer example in the paper Crossing State Lines: Adapting Object-Oriented Frameworks to Functional Reactive Languages.
-CRUD
+
+## CRUD
 
 Challenges: separating the domain and presentation logic, managing mutation, building a non-trivial layout.
 
@@ -48,7 +53,8 @@ The task is to build a frame containing the following elements: a textfield Tpre
 CRUD (Create, Read, Update and Delete) represents a typical graphical business application. The primary challenge is the separation of domain and presentation logic in the source code that is more or less forced on the implementer due to the ability to filter the view by a prefix. Traditionally, some form of MVC pattern is used to achieve the separation of domain and presentation logic. Also, the approach to managing the mutation of the list of names is tested. A good solution will have a good separation between the domain and presentation logic without much overhead (e.g. in the form of toolkit specific concepts or language/paradigm concepts), a mutation management that is fast but not error-prone and a natural representation of the layout (layout builders are allowed, of course, but would increase the overhead).
 
 CRUD is directly inspired by the crud example in the blog post FRP - Three principles for GUI elements with bidirectional data flow.
-Circle Drawer
+
+## Circle Drawer
 
 Challenges: undo/redo, custom drawing, dialog control*.
 
@@ -57,7 +63,8 @@ The task is to build a frame containing an undo and redo button as well as a can
 Circle Drawer’s goal is, among other things, to test how good the common challenge of implementing an undo/redo functionality for a GUI application can be solved. In an ideal solution the undo/redo functionality comes for free resp. just comes out as a natural consequence of the language / toolkit / paradigm. Moreover, Circle Drawer tests how dialog control*, i.e. keeping the relevant context between several successive GUI interaction steps, is achieved in the source code. Last but not least, the ease of custom drawing is tested.
 
 * Dialog control is explained in more detail in the paper Developing GUI Applications: Architectural Patterns Revisited starting on page seven. The term describes the challenge of retaining context between successive GUI operations.
-Cells
+
+## Cells
 
 Challenges: change propagation, widget customization, implementing a more authentic/involved GUI application.
 
