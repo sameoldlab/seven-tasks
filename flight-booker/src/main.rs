@@ -129,9 +129,6 @@ fn update(state: &mut Fb, message: Message) {
     match message {
         Message::TriptypeChanged(trip_type) => {
             state.triptype = trip_type;
-            if trip_type == TripType::Oneway {
-            } else {
-            }
         }
         Message::DepartureUpdated(date) => state.departure_date = date,
         Message::ArrivalUpdated(date) => state.arrival_date = date,
