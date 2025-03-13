@@ -4,6 +4,7 @@
 import { Button, VerticalBox, TabWidget, HorizontalBox, HorizontalBox } from "std-widgets.slint";
 import { Counter } from "counter.slint";
 import { TempConverter } from "temp-converter.slint";
+import { FlightBooker } from "flight-booker.slint";
 
 export component AppWindow inherits Window {
     title: "Seven Tasks";
@@ -21,9 +22,7 @@ export component AppWindow inherits Window {
 
             Tab {
                 title: "Flight Booker";
-                Rectangle {
-                    background: red;
-                }
+                FlightBooker { }
             }
 
             Tab {
