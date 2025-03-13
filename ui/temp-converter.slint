@@ -1,6 +1,6 @@
 import { VerticalBox, HorizontalBox, LineEdit } from "std-widgets.slint";
 
-export component TempConverter {
+export component TempConverter inherits VerticalBox {
     pure function toF(c: float) -> float {
         return c * (9 / 5) + 32;
     }
@@ -10,7 +10,6 @@ export component TempConverter {
 
     in-out property <string> tempF <=> f.text;
     in-out property <string> tempC <=> c.text;
-    VerticalBox {
         alignment: start;
         HorizontalBox {
             spacing: 5px;
@@ -26,6 +25,8 @@ export component TempConverter {
 
             Text {
                 text: "F";
+                vertical-alignment: center;
+                font-weight: 800;
             }
         }
 
@@ -45,7 +46,9 @@ export component TempConverter {
 
             Text {
                 text: "C";
+                vertical-alignment: center;
+                font-weight: 800;
             }
         }
-    }
+    
 }
