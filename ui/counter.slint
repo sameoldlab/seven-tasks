@@ -1,9 +1,9 @@
 import { Button, VerticalBox, TabWidget, HorizontalBox, HorizontalBox } from "std-widgets.slint";
 
-export component Counter inherits Window {
+export component Counter {
     property <int> counter: 0;
     HorizontalBox {
-        Button {
+        dec := Button {
             text: "-";
             clicked => {
                 counter -= 1;
@@ -14,7 +14,7 @@ export component Counter inherits Window {
             text: counter;
         }
 
-        Button {
+        add := Button {
             text: "+";
             clicked => {
                 counter += 1;
@@ -22,5 +22,3 @@ export component Counter inherits Window {
         }
     }
 }
-
-

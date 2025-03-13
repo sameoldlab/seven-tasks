@@ -3,45 +3,50 @@
 
 import { Button, VerticalBox, TabWidget, HorizontalBox, HorizontalBox } from "std-widgets.slint";
 import { Counter } from "counter.slint";
+import { TempConverter } from "temp-converter.slint";
 
 export component AppWindow inherits Window {
+    title: "Seven Tasks";
     VerticalBox {
         TabWidget {
+            Tab {
+                title: "Temp Converter";
+                TempConverter { }
+            }
+
             Tab {
                 title: "Counter";
                 Counter { }
             }
 
             Tab {
-                title: "Temp Converter";
-                Rectangle {
-                    background: red;
-                }
-            }
-            Tab {
                 title: "Flight Booker";
                 Rectangle {
                     background: red;
                 }
             }
+
             Tab {
                 title: "Timer";
                 Rectangle {
                     background: red;
                 }
             }
+
             Tab {
                 title: "CRUD";
                 Rectangle {
                     background: red;
                 }
             }
+
             Tab {
                 title: "Circle Drawer";
                 Rectangle {
                     background: red;
                 }
             }
+
             Tab {
                 title: "Cells";
                 Rectangle {
