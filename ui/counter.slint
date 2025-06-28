@@ -1,0 +1,28 @@
+import { Button, VerticalBox, TabWidget, HorizontalBox, HorizontalBox } from "std-widgets.slint";
+
+export component Counter inherits HorizontalBox {
+    property <int> counter: 0;
+        height: 100px;
+        dec := Button {
+            text: "-";
+            clicked => {
+                counter -= 1;
+            }
+        }
+
+        Text {
+            text: counter;
+            vertical-alignment: center;
+            horizontal-alignment: center;
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        add := Button {
+            text: "+";
+            clicked => {
+                counter += 1;
+            }
+        }
+    
+}

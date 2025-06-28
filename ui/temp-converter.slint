@@ -1,0 +1,54 @@
+import { VerticalBox, HorizontalBox, LineEdit } from "std-widgets.slint";
+
+export component TempConverter inherits VerticalBox {
+    pure function toF(c: float) -> float {
+        return c * (9 / 5) + 32;
+    }
+    pure function toC(f: float) -> float {
+        return (f - 32) * (5 / 9);
+    }
+
+    in-out property <string> tempF <=> f.text;
+    in-out property <string> tempC <=> c.text;
+        alignment: start;
+        HorizontalBox {
+            spacing: 5px;
+
+            f := LineEdit {
+                text: 0;
+                horizontal-alignment: right;
+                input-type: decimal;
+                edited(event) => {
+                    tempC = toC(event.to-float());
+                }
+            }
+
+            Text {
+                text: "F";
+                vertical-alignment: center;
+                font-weight: 800;
+            }
+        }
+
+        HorizontalBox {
+            alignment: stretch;
+            spacing: 4px;
+
+            c := LineEdit {
+                text: 0;
+                padding: 0;
+                horizontal-alignment: right;
+                input-type: decimal;
+                edited(event) => {
+                    tempF = toF(event.to-float());
+                }
+            }
+
+            Text {
+                text: "C";
+                vertical-alignment: center;
+                font-weight: 800;
+            }
+        }
+    
+}

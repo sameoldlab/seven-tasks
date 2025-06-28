@@ -1,0 +1,96 @@
+import { VerticalBox, HorizontalBox, LineEdit, Button, DatePickerPopup, Date, ComboBox } from "std-widgets.slint";
+
+// The task is to build a frame containing a combobox C with the two options “one-way flight” and “return flight”,
+//  two textfields T1 and T2 representing the start and return date, respectively, and a button B for submitting the selected flight. T2 is enabled iff C’s value is “return flight”. When C has the value “return flight” and T2’s date is strictly before T1’s then B is disabled. When a non-disabled textfield T has an ill-formatted date then T is colored red and B is disabled. When clicking B a message is displayed informing the user of his selection (e.g. “You have booked a one-way flight on 04.04.2014.”). Initially, C has the value “one-way flight” and T1 as well as T2 have the same (arbitrary) date (it is implied that T2 is disabled).
+
+component DateBox inherits HorizontalBox {
+    in property <string> label;
+    in-out property <Date> date;
+    in property <bool> enabled: true;
+    callback onInput(string);
+    pure function isNull(date: Date) -> bool {
+        return date.day == 0 && date.month == 0 && date.year == 0;
+    }
+    in property <bool> isValid: true;
+    spacing: 4px;
+    Text {
+        vertical-alignment: center;
+        text: label;
+    }
+
+    Button {
+        text: !isNull(date) ? date.day + "/" + date.month + "/" + date.year : "Select a Date";
+        clicked => {
+            picker.show()
+        }
+        enabled: enabled;
+    }
+
+    picker := DatePickerPopup {
+        x: (root.width - self.width) / 2;
+        y: (root.height - self.height) / 2;
+        close-policy: PopupClosePolicy.no-auto-close;
+
+        accepted(_date) => {
+            date = _date;
+            picker.close();
+        }
+        canceled => {
+            picker.close();
+        }
+    }
+}
+
+export component FlightBooker inherits VerticalBox {
+    pure function isNull(date: Date) -> bool {
+        return date.day == 0 && date.month == 0 && date.year == 0;
+    }
+    pure function isChronological(d1: Date, d2: Date) -> int {
+        if ((d1.year > d2.year) || (d1.year == d2.year && d1.month > d2.month) || (d1.year == d2.year && d1.month == d2.month && d1.day > d2.day)) {
+            return -1;
+        }
+        if (d1.year == d2.year && d1.month == d2.month && d1.day == d2.day) {
+            return 0;
+        }
+        return 1;
+    }
+    pure function isValid(dDate: Date, rDate: Date) -> bool {
+        if (isNull(dDate)) {
+            return false;
+        }
+        if (isNull(rDate)) {
+            return true;
+        }
+        return isChronological(dDate, rDate) >= 0;
+    }
+    property <Date> dDate <=> depart.date;
+    property <Date> rDate <=> return.date;
+    alignment: start;
+    trip_type := ComboBox {
+        model: ["One-way", "Round Trip"];
+        current-index: 0;
+    }
+
+    depart := DateBox {
+        label: "Departure";
+    }
+
+    return := DateBox {
+        label: "Return";
+        enabled: trip_type.current-index == 1;
+    }
+
+    Button {
+        primary: true;
+        text: "Submit";
+        enabled: isValid(dDate, rDate);
+        opacity: isValid(dDate, rDate) ? 100% : 50%;
+        clicked => {
+            msg.text = "You have booked a \{trip_type.current-value} flight on \{dDate.day}.\{dDate.month}.\{dDate.year}.";
+            dDate = { year: 0, month: 0, day: 0 };
+            rDate = { year: 0, month: 0, day: 0 };
+        }
+    }
+
+    msg := Text { }
+}
