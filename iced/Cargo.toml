@@ -1,0 +1,8 @@
+[package]
+name = "iced"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+iced = "0.13.1"
+time = {version = "0.3.36", features = ["std", "macros", "formatting", "parsing"]}
