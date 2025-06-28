@@ -8,5 +8,6 @@ resolver = "2"
 members = [
    "iced",
    "slint",
+   "gpui",
 ]
 
