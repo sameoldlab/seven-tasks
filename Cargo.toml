@@ -4,5 +4,6 @@ members = [
    "iced-sv",
    "slint-sv",
    "gpui-sv",
+   "floem-sv",
 ]
 
