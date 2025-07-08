@@ -1,9 +1,12 @@
 [workspace]
+
 resolver = "2"
 members = [
    "iced-sv",
    "slint-sv",
    "gpui-sv",
    "floem-sv",
+   "xilem-sv",
+   "freya-sv",
 ]
 
