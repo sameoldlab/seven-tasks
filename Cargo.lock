@@ -3524,6 +3524,8 @@ version = "0.1.0"
 dependencies = [
  "dioxus-router",
  "freya",
+ "time",
+ "tokio",
 ]
 
 [[package]]
