@@ -3,6 +3,8 @@ use freya::{launch::launch, prelude::*};
 use dioxus_router::prelude::{Outlet, Routable, Router};
 mod flight_booker;
 use flight_booker::FlightBooker;
+mod timer;
+use timer::Timer;
 
 fn main() {
     launch(app);
@@ -24,6 +26,8 @@ enum Route {
         TempConverter,
         #[route("/flight")]
         FlightBooker,
+        #[route("/timer")]
+        Timer,
 }
 const THEME: Theme = Theme {
     ..DARK_THEME
@@ -47,6 +51,10 @@ fn TabBar() -> Element {
                 Link {
                     to: Route::FlightBooker,
                     Tab { label { "FlightBooker" } }
+                }
+                Link {
+                    to: Route::Timer,
+                    Tab { label { "Timer" } }
                 }
             }
             rect {
