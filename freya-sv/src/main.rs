@@ -1,6 +1,8 @@
 use freya::{launch::launch, prelude::*};
 // use freya_router::prelude::*;
 use dioxus_router::prelude::{Outlet, Routable, Router};
+mod flight_booker;
+use flight_booker::FlightBooker;
 
 fn main() {
     launch(app);
@@ -20,11 +22,18 @@ enum Route {
         Counter,
         #[route("/temp")]
         TempConverter,
+        #[route("/flight")]
+        FlightBooker,
 }
+const THEME: Theme = Theme {
+    ..DARK_THEME
+};
 
 #[component]
 fn TabBar() -> Element {
     rsx!(
+        ThemeProvider {
+            theme: THEME,
         NativeRouter { Body {
             Tabsbar {
                 Link {
@@ -35,18 +44,32 @@ fn TabBar() -> Element {
                     to: Route::TempConverter,
                     Tab { label { "TempConverter" } }
                 }
+                Link {
+                    to: Route::FlightBooker,
+                    Tab { label { "FlightBooker" } }
+                }
             }
             rect {
                 main_align: "center",
+                cross_align: "center",
+                width: "100%",
                 Outlet::<Route> {}
             }
-        } }
+        } } }
     )
 }
 
 #[component]
 fn Home() -> Element {
-    rsx!(label {"Home"})
+    rsx!(rect {
+        height: "100%",
+        width: "100%",
+        cross_align: "center",
+        main_align: "center",
+        label {
+            "SEVEN TASKS"
+        }
+    })
 }
 
 #[component]
@@ -136,3 +159,4 @@ fn TempConverter() -> Element {
        }
     )
 }
+
