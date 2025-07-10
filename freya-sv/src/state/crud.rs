@@ -1,8 +1,23 @@
+use std::sync::atomic::AtomicI64;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Entry {
-    id: i32,
-    firstname: String,
-    lastname: String,
+    pub id: i64,
+    pub firstname: String,
+    pub lastname: String,
+}
+
+static ID: AtomicI64 = AtomicI64::new(0);
+
+impl Entry {
+    pub fn new(firstname: &str, lastname: &str) -> Self {
+        let id = ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+        Self {
+            id,
+            firstname: firstname.to_string(),
+            lastname: lastname.to_string(),
+        }
+    }
 }
 
 impl std::fmt::Display for Entry {
@@ -11,48 +26,3 @@ impl std::fmt::Display for Entry {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
-pub struct Entries {
-    entries: Vec<Entry>,
-    max_idx: i32,
-}
-
-impl Default for Entries {
-    fn default() -> Self {
-        Self {
-            entries: Default::default(),
-            max_idx: Default::default(),
-        }
-    }
-}
-
-impl Entries {
-    pub fn create(&mut self, firstname: &str, lastname: &str) {
-        let id = self.max_idx + 1;
-        self.max_idx = id;
-
-        let entry = Entry {
-            id,
-            firstname: firstname.to_string(),
-            lastname: lastname.to_string(),
-        };
-        self.entries.push(entry);
-        dbg!(&self.entries);
-    }
-
-    pub fn list(self) -> Vec<Entry> {
-        self.entries
-    }
-
-    pub fn update(&mut self, id: i32, firstname: &str, lastname: &str) {
-        if let Some(pos) = self.entries.iter().position(|e| e.id == id) {
-            self.entries[pos].firstname = firstname.to_string();
-            self.entries[pos].lastname = lastname.to_string();
-        }
-    }
-    pub fn delete(&mut self, id: i32) {
-        if let Some(pos) = self.entries.iter().position(|e| e.id == id) {
-            self.entries.swap_remove(pos);
-        };
-    }
-}

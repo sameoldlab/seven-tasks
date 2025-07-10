@@ -1,2 +1,2 @@
 mod crud;
-pub use crud::{Entries, Entry};
+pub use crud::Entry;
