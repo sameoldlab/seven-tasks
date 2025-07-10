@@ -10,12 +10,12 @@ pub struct Entry {
 static ID: AtomicI64 = AtomicI64::new(0);
 
 impl Entry {
-    pub fn new(firstname: &str, lastname: &str) -> Self {
+    pub fn new(firstname: String, lastname: String) -> Self {
         let id = ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
         Self {
             id,
-            firstname: firstname.to_string(),
-            lastname: lastname.to_string(),
+            firstname: firstname,
+            lastname: lastname,
         }
     }
 }

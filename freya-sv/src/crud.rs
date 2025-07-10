@@ -5,9 +5,9 @@ use freya::prelude::*;
 pub fn Crud() -> Element {
     let mut items = use_signal(|| {
         vec![
-            Entry::new("Hans", "Emil"),
-            Entry::new("Max", "Musterman"),
-            Entry::new("Roman", "Tisch"),
+            Entry::new("Hans".to_string(), "Emil".to_string()),
+            Entry::new("Max".to_string(), "Musterman".to_string()),
+            Entry::new("Roman".to_string(), "Tisch".to_string()),
         ]
     });
 
@@ -16,7 +16,7 @@ pub fn Crud() -> Element {
     let mut lastname =  use_signal(|| String::new());
     // let selected =  use_signal(|| (*items.read().clone()).first());
     // let selected =  use_signal(|| items.read().clone().first().cloned());
-    let selected_idx = use_signal::<Option<usize>>(|| {
+    let mut selected_idx = use_signal::<Option<usize>>(|| {
         if items.read().clone().len() > 0 {
             Some(0)
         } else { None }
@@ -54,14 +54,29 @@ pub fn Crud() -> Element {
                     background: "#222222",
                     height: "100%",
                     width: "flex(1)",
-                    padding: "8",
 
                     ScrollView {
                         direction: "vertical",
 
-                        for item in items.read().iter() {
-                            rect {
-                                width: "100%",
+                        for (i, item) in items.read().iter().enumerate().filter(|(_, item)| {
+                            item.firstname.to_lowercase().contains(&filter().trim().to_lowercase())
+                            || item.lastname.to_lowercase().contains(&filter().trim().to_lowercase())
+                        }) {
+                            Button {
+                                theme: theme_with!(ButtonTheme {
+                                    background: (if selected_idx().or(Some(0)) == Some(i) { "#454173"} else {"transparent"}).into(),
+                                    hover_background: "#555555".into(),
+                                    border_fill: "transparent".into(),
+                                    margin: "0".into(),
+                                    corner_radius: "0".into(),
+                                    width: "100%".into(),
+                                    padding: "4".into(),
+                                }),
+                                onpress:  move |_| {
+                                        selected_idx.set(Some(i));
+                                        if firstname().is_empty() { firstname.set(items()[i].firstname.clone()); }
+                                        if lastname().is_empty() { lastname.set(items()[i].lastname.clone()); }
+                                },
                                 label { "{item}"}
                             }
                         }
@@ -109,7 +124,10 @@ pub fn Crud() -> Element {
 
                 Button {
                     onpress: move |_|  {
-                        items.write().push(Entry::new(firstname().as_str(), lastname().as_str()));
+                        let first = firstname().trim().to_string();
+                        let last = lastname().trim().to_string();
+                        if first.is_empty() || last.is_empty() {return}
+                        items.write().push(Entry::new(first, last));
                     } ,
                     label {"Create"}
                 }
