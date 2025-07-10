@@ -7,6 +7,8 @@ mod timer;
 use timer::Timer;
 mod crud;
 use crud::Crud;
+mod circle_drawer;
+use circle_drawer::CircleDrawer;
 mod state;
 
 fn main() {
@@ -33,6 +35,8 @@ enum Route {
         Timer,
         #[route("/crud")]
         Crud,
+        #[route("/drawer")]
+        CircleDrawer,
 }
 const THEME: Theme = Theme { ..DARK_THEME };
 
@@ -62,6 +66,10 @@ fn TabBar() -> Element {
                 Link {
                     to: Route::Crud,
                     Tab { label { "Crud" } }
+                }
+                Link {
+                    to: Route::CircleDrawer,
+                    Tab { label { "Circle Drawer" } }
                 }
             }
             rect {
