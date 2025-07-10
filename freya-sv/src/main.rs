@@ -5,6 +5,9 @@ mod flight_booker;
 use flight_booker::FlightBooker;
 mod timer;
 use timer::Timer;
+mod crud;
+use crud::Crud;
+mod state;
 
 fn main() {
     launch(app);
@@ -28,10 +31,10 @@ enum Route {
         FlightBooker,
         #[route("/timer")]
         Timer,
+        #[route("/crud")]
+        Crud,
 }
-const THEME: Theme = Theme {
-    ..DARK_THEME
-};
+const THEME: Theme = Theme { ..DARK_THEME };
 
 #[component]
 fn TabBar() -> Element {
@@ -55,6 +58,10 @@ fn TabBar() -> Element {
                 Link {
                     to: Route::Timer,
                     Tab { label { "Timer" } }
+                }
+                Link {
+                    to: Route::Crud,
+                    Tab { label { "Crud" } }
                 }
             }
             rect {
@@ -167,4 +174,3 @@ fn TempConverter() -> Element {
        }
     )
 }
-
