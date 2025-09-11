@@ -10,3 +10,7 @@ members = [
    "freya-sv",
 ]
 
+[workspace.dependencies]
+time = {version = "0.3.36", features = ["std", "macros", "formatting", "parsing"]}
+tokio = "1.46.1"
+undo_2 = "0.2.1"

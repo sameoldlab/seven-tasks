@@ -5,8 +5,8 @@ edition = "2024"
 
 [dependencies]
 dioxus-router = "0.6.3"
-freya = {version = "0.3.4"}
+freya = { version = "0.3.4" }
 # freya-router = { git = "https://github.com/marc2332/freya.git"}
-time = {version = "0.3.36", features = ["std", "macros", "formatting", "parsing"]}
-tokio = "1.46.1"
-undo_2 = "0.2.1"
+time = { workspace = true }
+tokio = { workspace = true }
+undo_2 = { workspace = true }
