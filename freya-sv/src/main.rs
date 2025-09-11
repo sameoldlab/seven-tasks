@@ -1,4 +1,4 @@
-use freya::{launch::launch, prelude::*};
+use freya::prelude::*;
 // use freya_router::prelude::*;
 use dioxus_router::prelude::{Outlet, Routable, Router};
 mod flight_booker;
@@ -12,7 +12,13 @@ use circle_drawer::CircleDrawer;
 mod state;
 
 fn main() {
-    launch(app);
+    launch_cfg(
+        app,
+        LaunchConfig::<()>::new()
+            .with_min_size(600., 400.)
+            .with_size(1000., 700.)
+            .with_title("To Do"),
+    );
 }
 
 fn app() -> Element {
