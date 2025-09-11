@@ -1,0 +1,2 @@
+Why would you make Tailwind, a high level wrapper over a limited styling language, the primary api for triangles on a GPU????????????
+None of  the cruft of the web exists. You had a green field. WHY?!?! If everything else in gpui was perfect I still wouldn't be able to get past this. I must simply assume our goals and expectations for a UI Library are different. That is the only charitable explanation. good luck guys.
