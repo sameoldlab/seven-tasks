@@ -6,6 +6,7 @@ members = [
    "slint-sv",
    "xilem-sv",
    "freya-sv",
+   "makepad-sv",
 ]
 
 [workspace.dependencies]
