@@ -20,4 +20,4 @@ eframe = { version = "0.33.0", default-features = false, features = [
 
 env_logger = "0.11.8"
 log = "0.4.27"
-
+state.workspace = true

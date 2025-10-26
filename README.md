@@ -6,4 +6,5 @@ testing out rust gui frameworks with [The 7 Tasks](./the-7-tasks.md).
 | Slint   | x     | x          | x       |       |      |         |        |
 | Freya   | x     | x          | x       | x     | x    | x       |        |
 | Xilem   | x     | x          | x       |       |      |         |        |
+| Egui    | x     | x          | x       | x     |      |         |        |
 
