@@ -9,7 +9,6 @@ mod crud;
 use crud::Crud;
 mod circle_drawer;
 use circle_drawer::CircleDrawer;
-mod state;
 
 fn main() {
     launch_cfg(

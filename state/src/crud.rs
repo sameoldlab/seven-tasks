@@ -14,8 +14,8 @@ impl Entry {
         let id = ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
         Self {
             id,
-            firstname: firstname,
-            lastname: lastname,
+            firstname,
+            lastname,
         }
     }
 }

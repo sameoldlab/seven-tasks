@@ -1,6 +1,7 @@
 // use std::time::Duration;
 use time::{OffsetDateTime,Date, macros::format_description};
 pub use time;
+pub mod crud;
 
 /* #[derive(Default)]
 pub struct AppState {

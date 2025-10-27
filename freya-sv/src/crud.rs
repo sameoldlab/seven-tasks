@@ -1,4 +1,4 @@
-use crate::state::Entry;
+use state::crud::Entry;
 use freya::prelude::*;
 
 #[component]
