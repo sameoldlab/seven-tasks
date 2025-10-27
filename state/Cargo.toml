@@ -5,4 +5,4 @@ edition = "2024"
 
 [dependencies]
 time = {workspace = true}
-undo_2 = {workspace = true}
+undo_2 = "0.2.1"

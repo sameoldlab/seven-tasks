@@ -1,23 +1,19 @@
 use freya::prelude::*;
-use std::fmt::{Display, Error, Formatter};
-use time::{Date, OffsetDateTime, macros::format_description};
-
-#[derive(Debug, Clone, PartialEq)]
-enum TripType {
-    OneWay,
-    Return,
-}
-impl Display for TripType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            TripType::OneWay => write!(f, "One-way Trip"),
-            TripType::Return => write!(f, "Round Trip"),
-        }
-    }
-}
+use state::{
+    TripType,
+    time::{Date, OffsetDateTime, macros::format_description},
+};
 
 #[component]
 pub fn FlightBooker() -> Element {
+    // Comming back later. I'm still not sure how to do this properly in freya
+    // use_signal is very familiar coming from svelte/solid, but it brings in
+    // overhead where you of no longer fully controlling your data
+    //
+    // Independent state kind of works in CircleDrawer because the Drawing is an encapsulated object
+    // Doing the same in Flight Booker or CRUD requires more verbose functions, that are not needed otherwise  
+    // let fb = use_signal(|| state::FlightBooker::default());
+
     let format = format_description!("[year]-[month]-[day]");
     let now = OffsetDateTime::now_utc().date();
     let now_string = now.format(format).unwrap();
@@ -27,7 +23,7 @@ pub fn FlightBooker() -> Element {
     let mut arrival_date = use_signal(|| now);
     let mut arrival = use_signal(|| now_string.clone());
 
-    let mut is_valid = use_signal(|| true);
+    let mut is_valid = use_signal(|| true/* fb.read().validate().len() == 0 */);
     let mut message = use_signal(|| String::new());
     let mut is_arrival_valid = use_signal(|| true);
     let mut is_depart_valid = use_signal(|| true);

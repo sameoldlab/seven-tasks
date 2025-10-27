@@ -2,6 +2,7 @@
 use time::{OffsetDateTime,Date, macros::format_description};
 pub use time;
 pub mod crud;
+pub mod circles;
 
 /* #[derive(Default)]
 pub struct AppState {
