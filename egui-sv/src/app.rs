@@ -1,5 +1,9 @@
 use state::time;
-use state::{FlightBooker, Tabs, TripType, from_fahrenheit, to_fahrenheit};
+use state::{
+    FlightBooker, Tabs, TripType,
+    crud::{self, Crud},
+    from_fahrenheit, to_fahrenheit,
+};
 
 pub struct App {
     count: i32,
@@ -9,6 +13,7 @@ pub struct App {
     elapsed_time: std::time::Instant,
     total_time: f64,
     fb: FlightBooker,
+    crud: Crud,
 }
 
 impl App {
@@ -22,6 +27,7 @@ impl App {
             elapsed_time: std::time::Instant::now(),
             total_time: 30.0,
             fb: FlightBooker::default(),
+            crud: Crud::default(),
         }
     }
 }
@@ -138,7 +144,8 @@ impl eframe::App for App {
                 Tabs::Timer => {
                     // Different model but objectively simpler than all
                     // the frameworks which need an Animation System
-                    let elapsed = (self.elapsed_time.elapsed().as_millis() as f64).min(self.total_time * 1000.);
+                    let elapsed = (self.elapsed_time.elapsed().as_millis() as f64)
+                        .min(self.total_time * 1000.);
                     ui.horizontal(|ui| {
                         ui.label("Elapsed Time: ");
                         ui.add(egui::ProgressBar::new(
@@ -157,26 +164,96 @@ impl eframe::App for App {
                         self.elapsed_time = std::time::Instant::now();
                     }
                 }
+                // I've only done it twice before but the layout for this felt very easy to write.
+                // This s notable because the code is #just_rust. There were no macros or dsls required
+                // to make this easy to do. Granted I am spending 0 time on styling, but I don't think this
+                // is the layer where styles could eat up time. There is also no hot-reload, but because the
+                // layout is much less complex than CSS rules I can write for a while and
+                // have an inuitive idea of what I will see when it runs.
                 Tabs::Crud => {
-                    
+                    ui.horizontal(|ui| {
+                        ui.label("Filter prefix: ");
+                        ui.text_edit_singleline(&mut self.crud.filter)
+                    });
+                    ui.horizontal(|ui| {
+                        egui::ScrollArea::vertical().show(ui, |ui| {
+                            ui.vertical(|ui| {
+                                for (i, e) in self
+                                    .crud
+                                    .items
+                                    .iter()
+                                    .filter(|e| {
+                                        e.firstname.contains(&self.crud.filter)
+                                            || e.lastname.contains(&self.crud.filter)
+                                    })
+                                    .enumerate()
+                                {
+                                    let entry = ui.add(egui::Button::selectable(
+                                        i == self.crud.selected,
+                                        e.to_string(),
+                                    ));
+                                    if entry.clicked() {
+                                        self.crud.selected = i;
+                                        self.crud.firstname_ = e.firstname.clone();
+                                        self.crud.lastname_ = e.lastname.clone();
+                                    }
+                                }
+                            });
+                        });
+                        ui.vertical(|ui| {
+                            ui.horizontal(|ui| {
+                                ui.label("Firstname: ");
+                                ui.text_edit_singleline(&mut self.crud.firstname_)
+                            });
+                            ui.horizontal(|ui| {
+                                ui.label("Lastname: ");
+                                ui.text_edit_singleline(&mut self.crud.lastname_)
+                            });
+                        });
+                    });
+                    ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
+                        ui.horizontal(|ui| {
+                            let create = ui.add_enabled(
+                                !self.crud.firstname_.is_empty() && !self.crud.lastname_.is_empty(),
+                                egui::Button::new("Create"),
+                            );
+                            if create.clicked() {
+                                self.crud.items.push(crud::Entry::new(
+                                    self.crud.firstname_.clone(),
+                                    self.crud.lastname_.clone(),
+                                ));
+                                self.crud.firstname_.clear();
+                                self.crud.lastname_.clear();
+                            }
+
+                            let update = ui.add_enabled(
+                                !self.crud.firstname_.is_empty() && !self.crud.lastname_.is_empty(),
+                                egui::Button::new("Update"),
+                            );
+                            if update.clicked() {
+                                self.crud.items[self.crud.selected].firstname =
+                                    self.crud.firstname_.clone();
+                                self.crud.items[self.crud.selected].lastname =
+                                    self.crud.lastname_.clone();
+                                self.crud.firstname_.clear();
+                                self.crud.lastname_.clear();
+                            }
+
+                            let delete = ui.add_enabled(
+                                self.crud.items.get(self.crud.selected).is_some(),
+                                egui::Button::new("Delete"),
+                            );
+                            if delete.clicked() {
+                                self.crud.items.swap_remove(self.crud.selected);
+                            }
+                        });
+                    });
                 }
                 Tabs::Circles => todo!(),
                 Tabs::Cells => todo!(),
             }
-
-            ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
-                counter(ui);
-            });
         });
     }
-}
-
-fn counter(ui: &mut egui::Ui) {
-    ui.horizontal(|ui| {
-        ui.spacing_mut().item_spacing.x = 0.0;
-        ui.label("Powered by ");
-        ui.label(".");
-    });
 }
 
 // So turns out dates (and other numerical inputs) are extremely

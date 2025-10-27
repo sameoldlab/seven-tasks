@@ -27,11 +27,11 @@ impl std::fmt::Display for Entry {
 }
 
 pub struct Crud {
-    items: Vec<Entry>,
-    firstname_: String,
-    lastname_: String,
-    filter: String,
-    selected: usize,
+    pub items: Vec<Entry>,
+    pub firstname_: String,
+    pub lastname_: String,
+    pub filter: String,
+    pub selected: usize,
 }
 
 impl Default for Crud {
