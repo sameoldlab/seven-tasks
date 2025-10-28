@@ -1,6 +1,6 @@
 use std::sync::atomic::AtomicI64;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Entry {
     pub id: i64,
     pub firstname: String,
@@ -51,24 +51,25 @@ impl Default for Crud {
 }
 
 impl Crud {
-    fn next(&mut self) {
-        self.selected = (self.selected + 1).max(self.items.len() - 1)
+    pub fn create(&mut self) {
+        self.items.push(Entry::new(
+            self.firstname_.clone(),
+            self.lastname_.clone(),
+        ));
+        self.firstname_.clear();
+        self.lastname_.clear();
     }
-    fn prev(&mut self) {
-        self.selected = (self.selected - 1).min(0)
-    }
-    fn create(&mut self, entry: Entry) {
-        self.items.push(entry)
-    }
-    fn update(&mut self) {
+    pub fn update(&mut self) {
         if !self.firstname_.is_empty() {
-            self.items[self.selected].firstname = self.firstname_.clone();
+            self.items[self.selected].firstname.clone_from(&self.firstname_);
         }
         if !self.lastname_.is_empty() {
-            self.items[self.selected].lastname = self.lastname_.clone();
+            self.items[self.selected].lastname.clone_from(&self.lastname_);
         }
+        self.firstname_.clear();
+        self.lastname_.clear();
     }
-    fn delete(&mut self) {
+    pub fn delete(&mut self) {
         self.items.swap_remove(self.selected);
     }
 }

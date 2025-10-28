@@ -194,8 +194,8 @@ impl eframe::App for App {
                                     ));
                                     if entry.clicked() {
                                         self.crud.selected = i;
-                                        self.crud.firstname_ = e.firstname.clone();
-                                        self.crud.lastname_ = e.lastname.clone();
+                                        self.crud.firstname_.clone_from(&e.firstname);
+                                        self.crud.lastname_.clone_from(&e.lastname);
                                     }
                                 }
                             });
@@ -218,12 +218,7 @@ impl eframe::App for App {
                                 egui::Button::new("Create"),
                             );
                             if create.clicked() {
-                                self.crud.items.push(crud::Entry::new(
-                                    self.crud.firstname_.clone(),
-                                    self.crud.lastname_.clone(),
-                                ));
-                                self.crud.firstname_.clear();
-                                self.crud.lastname_.clear();
+                                self.crud.create();
                             }
 
                             let update = ui.add_enabled(
@@ -231,12 +226,7 @@ impl eframe::App for App {
                                 egui::Button::new("Update"),
                             );
                             if update.clicked() {
-                                self.crud.items[self.crud.selected].firstname =
-                                    self.crud.firstname_.clone();
-                                self.crud.items[self.crud.selected].lastname =
-                                    self.crud.lastname_.clone();
-                                self.crud.firstname_.clear();
-                                self.crud.lastname_.clear();
+                                self.crud.update();
                             }
 
                             let delete = ui.add_enabled(
@@ -244,7 +234,7 @@ impl eframe::App for App {
                                 egui::Button::new("Delete"),
                             );
                             if delete.clicked() {
-                                self.crud.items.swap_remove(self.crud.selected);
+                                self.crud.delete();
                             }
                         });
                     });
